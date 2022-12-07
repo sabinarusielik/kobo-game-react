@@ -1,0 +1,200 @@
+$beige: #f6f5f0;
+$white: #fff;
+$green: #568551;
+$orange: #f87248;
+$black: #333333;
+
+$fw-400: 400;
+$fw-700: 700;
+$fw-800: 800;
+
+$s-40: 2.5rem;
+$s-100: 6.25rem;
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Syne", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: $beige;
+  font-size: $s-40;
+}
+
+.App {
+  padding: $s-40;
+  display: grid;
+  grid-template-columns: 3fr 8fr 1fr;
+  gap: 1.25rem;
+  height: 100vh;
+}
+
+h2 {
+  font-weight: $fw-400;
+  font-size: $s-40;
+}
+
+.logo,
+.info-belt,
+.menu {
+  display: grid;
+  padding: 2rem;
+  place-content: center;
+}
+
+.info-belt {
+  font-weight: $fw-700;
+}
+
+.deck-wrap {
+  display: grid;
+  place-content: center;
+  gap: $s-40;
+}
+
+.deck-remaining,
+.deck-rejected {
+  display: grid;
+  justify-items: center;
+  gap: calc($s-40/2);
+}
+
+.players-wrap {
+  display: grid;
+  align-content: start;
+  justify-content: center;
+  height: 100%;
+  padding: $s-40 0;
+  overflow: hidden;
+  transition: all 0.5s ease;
+}
+
+.player-action {
+  margin: 60px 0;
+  display: flex;
+  padding: 0 $s-40;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+}
+
+.cards-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: $s-40;
+}
+
+.card {
+  color: $beige;
+  aspect-ratio: 1 / 1;
+  width: 15rem;
+  display: grid;
+  place-content: center;
+  font-size: $s-100;
+  font-weight: $fw-800;
+  border-radius: 20px;
+  position: relative;
+  cursor: pointer;
+
+  &.front::after,
+  &.front::before {
+    content: attr(data-suit);
+    position: absolute;
+    font-size: $s-40;
+  }
+
+  &.front::after {
+    transform: rotate(180deg);
+    bottom: 0;
+    right: calc($s-40/4);
+  }
+
+  &.front::before {
+    left: calc($s-40/4);
+  }
+
+  &.back {
+    background-color: $green;
+    user-select: none;
+  }
+
+  &.red {
+    background-color: $orange;
+  }
+
+  &.black {
+    background-color: $black;
+  }
+
+  .circle {
+    width: 5rem;
+    aspect-ratio: 1 / 1;
+    border: $beige 1rem solid;
+    border-radius: 100px;
+    transition: all ease-in-out 0.2s;
+  }
+
+  &:hover .circle {
+    background-color: $beige;
+  }
+}
+
+.menu .menu-circle {
+  border: 4px solid $white;
+  aspect-ratio: 1 / 1;
+  display: grid;
+  place-content: center;
+  width: 3.75rem;
+  border-radius: 20rem;
+  gap: 0.25rem;
+  cursor: pointer;
+
+  .line {
+    height: 4px;
+    width: 25px;
+    background-color: $white;
+  }
+}
+
+.btn {
+  background-color: $beige;
+  border: none;
+  padding: $s-40;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: $fw-700;
+}
+
+#reject-btn {
+  color: $orange;
+}
+
+#reject-btn:hover {
+  color: $beige;
+  background-color: $orange;
+}
+
+#replace-btn {
+  color: $green;
+}
+
+#replace-btn:hover {
+  color: $beige;
+  background-color: $green;
+}
+
+.br-20 {
+  border-radius: 20px;
+}
+
+.white {
+  background-color: $white;
+}
+
+.orange {
+  background-color: $orange;
+}
