@@ -9,34 +9,54 @@ import PlayerAction from "./components/PlayerAction";
 
 export default function App() {
   const [deck, setDeck] = useState([]);
+  const [playerOneDeck, setPlayerOneDeck] = useState([]);
+  const [playerTwoDeck, setPlayerTwoDeck] = useState([]);
+
+  // functions
+  const createDeck = () => {
+    return SUITS.flatMap((suit) => {
+      return VALUES.map((value) => {
+        const card = { suit: suit, value: value };
+        return card;
+      });
+    });
+  };
+
+  const shuffleDeck = (deck) => {
+    let n = deck.length;
+    let oldCard;
+    let newIndex;
+
+    while (n) {
+      newIndex = Math.floor(Math.random() * n--);
+      oldCard = deck[n];
+      deck[n] = deck[newIndex];
+      deck[newIndex] = oldCard;
+    }
+    return deck;
+  };
 
   useEffect(() => {
-    const createDeck = () => {
-      return SUITS.flatMap((suit) => {
-        return VALUES.map((value) => {
-          const card = { suit: suit, value: value };
-          return card;
-        });
-      });
-    };
-
-    const shuffleDeck = (deck) => {
-      let n = deck.length;
-      let oldCard;
-      let newIndex;
-
-      while (n) {
-        newIndex = Math.floor(Math.random() * n--);
-        oldCard = deck[n];
-        deck[n] = deck[newIndex];
-        deck[newIndex] = oldCard;
-      }
-      return deck;
-    };
-
+    // create and shuffle deck
     const shuffledDeck = shuffleDeck(createDeck());
+
+    // create and give initial cards to players
+    const initialPlayersCards = shuffledDeck.splice(0, 8);
+    const playerOneInitialCards = initialPlayersCards.slice(0, 4);
+    const playerTwoInitialCards = initialPlayersCards.slice(
+      4,
+      initialPlayersCards.length
+    );
+    setPlayerOneDeck(playerOneInitialCards);
+    setPlayerTwoDeck(playerTwoInitialCards);
     setDeck(shuffledDeck);
+
+    console.log("useEffect1");
   }, []);
+
+  console.log("App comp");
+  console.log(deck);
+  console.log(playerOneDeck, playerTwoDeck);
 
   return (
     <div className="App">
@@ -49,9 +69,9 @@ export default function App() {
       <DeckPanel />
 
       <div className="players-wrap white br-20">
-        <Player />
+        <Player cards={playerOneDeck} />
         <PlayerAction />
-        <Player />
+        <Player cards={playerTwoDeck} />
       </div>
     </div>
   );
