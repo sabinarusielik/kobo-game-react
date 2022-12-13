@@ -1,6 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 
-export default function Card({ card, flipped }) {
+export default function Card({ card }) {
+  const [flipped, setFlipped] = useState(false);
+
+  const handleClick = () => {
+    setFlipped((prevSide) => !prevSide);
+  };
+
   if (flipped) {
     return (
       <div
@@ -8,13 +14,14 @@ export default function Card({ card, flipped }) {
           card.suit === "♥" || card.suit === "♦" ? "red" : "black"
         }`}
         data-suit={card.suit}
+        onClick={handleClick}
       >
         {card.value}
       </div>
     );
   } else {
     return (
-      <div className="card back">
+      <div className="card back" onClick={handleClick}>
         <div className="circle"></div>
       </div>
     );

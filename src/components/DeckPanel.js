@@ -6,15 +6,11 @@ export default function DeckPanel() {
     <div className="deck-wrap">
       <div className="deck-remaining">
         <h2>Draw deck</h2>
-        <Card key="deck-card" flipped={false} card={{ suit: "", value: "" }} />
+        <Card key="deck-card" card={{ suit: "", value: "" }} />
       </div>
       <div className="deck-rejected">
         <h2>Rejected deck</h2>
-        <Card
-          key="rejected-card"
-          flipped={true}
-          card={{ suit: "♦", value: "6" }}
-        />
+        <Card key="rejected-card" card={{ suit: "♦", value: "6" }} />
       </div>
     </div>
   );
