@@ -11,6 +11,8 @@ export default function App() {
   const [deck, setDeck] = useState([]);
   const [playerOneDeck, setPlayerOneDeck] = useState([]);
   const [playerTwoDeck, setPlayerTwoDeck] = useState([]);
+  // const [playerOneTurn, setPlayerOneTurn] = useState(true);
+  // const [playerTwoTurn, setPlayerTwoTurn] = useState(false);
 
   // functions
   const createDeck = () => {
@@ -50,8 +52,6 @@ export default function App() {
     setPlayerOneDeck(playerOneInitialCards);
     setPlayerTwoDeck(playerTwoInitialCards);
     setDeck(shuffledDeck);
-
-    console.log("useEffect1");
   }, []);
 
   console.log("App comp");
