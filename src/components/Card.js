@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
-export default function Card({ card, disableFlip }) {
-  const [flipped, setFlipped] = useState(false);
+export default function Card({ card, disableFlip, flip }) {
+  const [flipped, setFlipped] = useState(flip);
 
   const handleClick = () => {
     setFlipped((prevSide) => !prevSide);

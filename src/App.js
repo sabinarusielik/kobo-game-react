@@ -11,8 +11,7 @@ export default function App() {
   const [deck, setDeck] = useState([]);
   const [playerOneDeck, setPlayerOneDeck] = useState([]);
   const [playerTwoDeck, setPlayerTwoDeck] = useState([]);
-  // const [playerOneTurn, setPlayerOneTurn] = useState(true);
-  // const [playerTwoTurn, setPlayerTwoTurn] = useState(false);
+  const [cardDrawnFromDeck, setCardDrawnFromDeck] = useState(null);
 
   // functions
   const createDeck = () => {
@@ -38,6 +37,10 @@ export default function App() {
     return deck;
   };
 
+  const drawCard = (card) => {
+    setCardDrawnFromDeck(card);
+  };
+
   useEffect(() => {
     // create and shuffle deck
     const shuffledDeck = shuffleDeck(createDeck());
@@ -54,9 +57,9 @@ export default function App() {
     setDeck(shuffledDeck);
   }, []);
 
-  console.log("App comp");
-  console.log(deck);
-  console.log(playerOneDeck, playerTwoDeck);
+  console.log("App deck", deck);
+  console.log("App players decks", playerOneDeck, playerTwoDeck);
+  console.log("App drawnCard", cardDrawnFromDeck);
 
   return (
     <div className="App">
@@ -66,11 +69,11 @@ export default function App() {
 
       <InfoBelt />
       <Menu />
-      <DeckPanel />
+      <DeckPanel deck={deck} drawCard={drawCard} />
 
       <div className="players-wrap white br-20">
         <Player cards={playerOneDeck} />
-        <PlayerAction />
+        <PlayerAction cardDrawnFromDeck={cardDrawnFromDeck} />
         <Player cards={playerTwoDeck} />
       </div>
     </div>
