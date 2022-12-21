@@ -3,8 +3,8 @@ import Card from "./Card";
 
 export default function DeckPanel({ deck, drawCard }) {
   const handleClick = () => {
-    const drawnCard = deck.shift();
-    drawCard(drawnCard);
+    // const drawnCard = deck.shift();
+    drawCard();
   };
   return (
     <div className="deck-wrap">

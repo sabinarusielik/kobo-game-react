@@ -24,21 +24,22 @@ export default function App() {
   };
 
   const shuffleDeck = (deck) => {
-    let n = deck.length;
+    let index = deck.length;
     let oldCard;
     let newIndex;
 
-    while (n) {
-      newIndex = Math.floor(Math.random() * n--);
-      oldCard = deck[n];
-      deck[n] = deck[newIndex];
+    while (index) {
+      newIndex = Math.floor(Math.random() * index--);
+      oldCard = deck[index];
+      deck[index] = deck[newIndex];
       deck[newIndex] = oldCard;
     }
     return deck;
   };
 
-  const drawCard = (card) => {
-    setCardDrawnFromDeck(card);
+  const drawCard = () => {
+    const drawnCard = deck.shift();
+    setCardDrawnFromDeck(drawnCard);
   };
 
   useEffect(() => {
