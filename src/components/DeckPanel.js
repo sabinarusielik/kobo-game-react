@@ -1,11 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
+import { DrawnCardContext } from "../context/DrawnCardContext";
 import Card from "./Card";
 
 export default function DeckPanel({ deck, drawCard }) {
+  const { cardDrawnFromDeck } = useContext(DrawnCardContext);
   const handleClick = () => {
-    // const drawnCard = deck.shift();
     drawCard();
   };
+  console.log("DeckPanel", cardDrawnFromDeck);
   return (
     <div className="deck-wrap">
       <div className="deck-remaining" onClick={handleClick}>
@@ -14,12 +16,16 @@ export default function DeckPanel({ deck, drawCard }) {
       </div>
       <div className="deck-rejected">
         <h2>Rejected deck</h2>
-        <Card
-          key="rejected-card"
-          card={{ suit: "♦", value: "6" }}
-          disableFlip={true}
-          flip={true}
-        />
+        {cardDrawnFromDeck ? (
+          <Card
+            key="rejected-card"
+            card={cardDrawnFromDeck}
+            disableFlip={true}
+            flip={true}
+          />
+        ) : (
+          <div className="card disabled"></div>
+        )}
       </div>
     </div>
   );
