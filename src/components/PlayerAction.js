@@ -1,11 +1,19 @@
 import React, { useContext } from "react";
 import { DrawnCardContext } from "../context/DrawnCardContext";
+import { RejectedCardContext } from "../context/RejectedCardContext";
+import { ACTIONS } from "../reducers/drawnCardReducer";
 import Card from "./Card";
 
 export default function PlayerAction() {
-  const { cardDrawnFromDeck } = useContext(DrawnCardContext);
+  const { cardDrawnFromDeck, dispatch } = useContext(DrawnCardContext);
+  const { setRejectedCardsArr } = useContext(RejectedCardContext);
   const handleRejection = () => {
-    console.log("reject");
+    console.log("reject", cardDrawnFromDeck);
+    setRejectedCardsArr((prevArr) => {
+      prevArr.unshift(cardDrawnFromDeck);
+      return prevArr;
+    });
+    dispatch({ type: ACTIONS.REJECT });
   };
   console.log("Player Action", cardDrawnFromDeck);
   return (
