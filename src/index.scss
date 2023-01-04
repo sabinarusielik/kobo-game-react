@@ -145,6 +145,10 @@ h2 {
   &.disabled {
     background-color: $beige;
     cursor: auto;
+
+    &.rejected {
+      background-color: $white;
+    }
   }
 }
 
