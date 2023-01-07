@@ -14,13 +14,18 @@ export default function DeckPanel({ drawCard }) {
   };
 
   const handleRejectedDeckClick = () => {
-    const rejectedCard = rejectedCardsArr[0];
-    setRejectedCardsArr((prevArr) => {
-      prevArr.shift();
-      return prevArr;
-    });
-    dispatch({ type: ACTIONS.DRAW, card: rejectedCard });
-    console.log("Draw from rejected", rejectedCard, rejectedCardsArr);
+    if (!cardDrawnFromDeck) {
+      const rejectedCard = rejectedCardsArr[0];
+      setRejectedCardsArr((prevArr) => {
+        prevArr.shift();
+        return prevArr;
+      });
+      dispatch({ type: ACTIONS.DRAW, card: rejectedCard });
+      console.log("Draw from rejected", rejectedCard, rejectedCardsArr);
+    } else {
+      console.log("card is drawn");
+      return;
+    }
   };
 
   console.log("!!!Deck Panel RejectedCard", rejectedCardsArr);
