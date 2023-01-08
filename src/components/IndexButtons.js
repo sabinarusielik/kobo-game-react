@@ -1,11 +1,11 @@
 import React from "react";
 
-export default function IndexButtons({ playerDeck }) {
+export default function IndexButtons({ playerDeck, replaceCard }) {
   console.log(playerDeck);
   const buttons = [];
 
   const handleIndexButtonClick = (index) => {
-    console.log(index);
+    replaceCard(index);
   };
 
   for (let i = 0; i < playerDeck.length; i++) {

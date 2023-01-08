@@ -11,7 +11,6 @@ export default function PlayerAction({ playerDeck }) {
   const [showIndexButtons, setShowIndexButtons] = useState(false);
 
   const handleRejection = () => {
-    console.log("reject", cardDrawnFromDeck);
     setRejectedCardsArr((prevArr) => {
       prevArr.unshift(cardDrawnFromDeck);
       return prevArr;
@@ -20,14 +19,29 @@ export default function PlayerAction({ playerDeck }) {
   };
   console.log("Player Action", cardDrawnFromDeck);
 
-  const handleReplacement = () => {
+  const showReplacementButtons = () => {
     console.log("I want to replace", cardDrawnFromDeck);
     setShowIndexButtons((indexButtons) => !indexButtons);
   };
 
+  const handleReplacement = (index) => {
+    const replacedCard = playerDeck[index];
+    playerDeck[index] = cardDrawnFromDeck;
+    setRejectedCardsArr((prevArr) => {
+      prevArr.unshift(replacedCard);
+      return prevArr;
+    });
+    dispatch({ type: ACTIONS.REJECT });
+    setShowIndexButtons(false);
+  };
+
   return (
     <div className="player-action">
-      <div id="reject-btn" className="btn" onClick={handleRejection}>
+      <div
+        id="reject-btn"
+        className="btn"
+        onClick={cardDrawnFromDeck ? handleRejection : null}
+      >
         reject
       </div>
       <div className="deck-drawn">
@@ -38,9 +52,16 @@ export default function PlayerAction({ playerDeck }) {
         )}
       </div>
       {showIndexButtons ? (
-        <IndexButtons playerDeck={playerDeck} />
+        <IndexButtons
+          playerDeck={playerDeck}
+          replaceCard={(index) => handleReplacement(index)}
+        />
       ) : (
-        <div id="replace-btn" className="btn" onClick={handleReplacement}>
+        <div
+          id="replace-btn"
+          className="btn"
+          onClick={cardDrawnFromDeck ? showReplacementButtons : null}
+        >
           replace
         </div>
       )}
