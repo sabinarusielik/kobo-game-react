@@ -1,16 +1,15 @@
 import React, { useState, useEffect } from "react";
 import Card from "./Card";
 
-export default function Player({ cards }) {
+export default function Player({ cards, playerTurn, changeTurn }) {
   const [disableFlip, setDisableFlip] = useState(false);
   const [backCount, setBackCount] = useState(0);
   const [frontCount, setFrontCount] = useState(0);
 
   useEffect(() => {
-    console.log("front", frontCount);
-    console.log("back", backCount);
     if (frontCount === 2 && backCount === 2) {
       setDisableFlip(true);
+      changeTurn();
     }
   }, [frontCount, backCount]);
 
@@ -30,10 +29,14 @@ export default function Player({ cards }) {
             <Card
               key={card.suit + card.value}
               card={card}
-              flip={false}
+              flip={true}
               disableFlip={disableFlip}
-              handleFrontCounter={frontCount < 2 ? handleFrontCounter : null}
-              handleBackCounter={backCount < 2 ? handleBackCounter : null}
+              handleFrontCounter={
+                playerTurn ? (frontCount < 2 ? handleFrontCounter : null) : null
+              }
+              handleBackCounter={
+                playerTurn ? (backCount < 2 ? handleBackCounter : null) : null
+              }
             />
           );
         })}

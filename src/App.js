@@ -14,6 +14,7 @@ export default function App() {
   const [playerOneDeck, setPlayerOneDeck] = useState([]);
   const [playerTwoDeck, setPlayerTwoDeck] = useState([]);
   const { dispatch } = useContext(DrawnCardContext);
+  const [playerOneTurn, setPlayerOneTurn] = useState(true);
   // const [cardDrawnFromDeck, setCardDrawnFromDeck] = useState(null);
   // console.log(dispatch);
 
@@ -62,6 +63,10 @@ export default function App() {
     setDeck(shuffledDeck);
   }, []);
 
+  const changeTurn = () => {
+    setPlayerOneTurn((prevTurn) => !prevTurn);
+  };
+
   console.log("App deck", deck);
   console.log("App players decks", playerOneDeck, playerTwoDeck);
 
@@ -71,14 +76,25 @@ export default function App() {
         <img src={logo} alt="Typographic logo of KOBO" />
       </div>
 
-      <InfoBelt />
+      <InfoBelt playerTurn={playerOneTurn} />
       <Menu />
       <DeckPanel deck={deck} drawCard={drawCard} />
 
       <div className="players-wrap white br-20">
-        <Player cards={playerOneDeck} />
-        <PlayerAction playerDeck={playerOneDeck} />
-        <Player cards={playerTwoDeck} />
+        <Player
+          cards={playerOneDeck}
+          playerTurn={playerOneTurn}
+          changeTurn={changeTurn}
+        />
+        <PlayerAction
+          playerDeck={playerOneTurn ? playerOneDeck : playerTwoDeck}
+          changeTurn={changeTurn}
+        />
+        <Player
+          cards={playerTwoDeck}
+          playerTurn={!playerOneTurn}
+          changeTurn={changeTurn}
+        />
       </div>
     </div>
   );

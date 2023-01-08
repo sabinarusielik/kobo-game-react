@@ -5,7 +5,7 @@ import { ACTIONS } from "../reducers/drawnCardReducer";
 import Card from "./Card";
 import IndexButtons from "./IndexButtons";
 
-export default function PlayerAction({ playerDeck }) {
+export default function PlayerAction({ playerDeck, changeTurn }) {
   const { cardDrawnFromDeck, dispatch } = useContext(DrawnCardContext);
   const { setRejectedCardsArr } = useContext(RejectedCardContext);
   const [showIndexButtons, setShowIndexButtons] = useState(false);
@@ -16,6 +16,7 @@ export default function PlayerAction({ playerDeck }) {
       return prevArr;
     });
     dispatch({ type: ACTIONS.REJECT });
+    changeTurn();
   };
   console.log("Player Action", cardDrawnFromDeck);
 
@@ -33,6 +34,7 @@ export default function PlayerAction({ playerDeck }) {
     });
     dispatch({ type: ACTIONS.REJECT });
     setShowIndexButtons(false);
+    changeTurn();
   };
 
   return (
