@@ -207,3 +207,23 @@ h2 {
 .orange {
   background-color: $orange;
 }
+
+.index-btn-wrap {
+  display: flex;
+  justify-items: space-around;
+  gap: 1rem;
+  padding: 1.2rem;
+
+  .index-btn {
+    aspect-ratio: 1 / 1;
+    width: $s-40;
+    background-color: $green;
+    border-radius: 20rem;
+    font-size: calc($s-40 / 2);
+    display: grid;
+    place-content: center;
+    color: $white;
+    font-feature-settings: "pnum" on, "lnum" on;
+    cursor: pointer;
+  }
+}

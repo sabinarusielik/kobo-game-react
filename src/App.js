@@ -77,7 +77,7 @@ export default function App() {
 
       <div className="players-wrap white br-20">
         <Player cards={playerOneDeck} />
-        <PlayerAction />
+        <PlayerAction playerDeck={playerOneDeck} />
         <Player cards={playerTwoDeck} />
       </div>
     </div>

@@ -1,12 +1,15 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { DrawnCardContext } from "../context/DrawnCardContext";
 import { RejectedCardContext } from "../context/RejectedCardContext";
 import { ACTIONS } from "../reducers/drawnCardReducer";
 import Card from "./Card";
+import IndexButtons from "./IndexButtons";
 
-export default function PlayerAction() {
+export default function PlayerAction({ playerDeck }) {
   const { cardDrawnFromDeck, dispatch } = useContext(DrawnCardContext);
   const { setRejectedCardsArr } = useContext(RejectedCardContext);
+  const [showIndexButtons, setShowIndexButtons] = useState(false);
+
   const handleRejection = () => {
     console.log("reject", cardDrawnFromDeck);
     setRejectedCardsArr((prevArr) => {
@@ -16,6 +19,12 @@ export default function PlayerAction() {
     dispatch({ type: ACTIONS.REJECT });
   };
   console.log("Player Action", cardDrawnFromDeck);
+
+  const handleReplacement = () => {
+    console.log("I want to replace", cardDrawnFromDeck);
+    setShowIndexButtons((indexButtons) => !indexButtons);
+  };
+
   return (
     <div className="player-action">
       <div id="reject-btn" className="btn" onClick={handleRejection}>
@@ -28,9 +37,13 @@ export default function PlayerAction() {
           <div className="card disabled"></div>
         )}
       </div>
-      <div id="replace-btn" className="btn">
-        replace
-      </div>
+      {showIndexButtons ? (
+        <IndexButtons playerDeck={playerDeck} />
+      ) : (
+        <div id="replace-btn" className="btn" onClick={handleReplacement}>
+          replace
+        </div>
+      )}
     </div>
   );
 }
