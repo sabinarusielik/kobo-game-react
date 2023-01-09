@@ -1,17 +1,22 @@
 import { SUITS, VALUES } from "./cardsData";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
+import { DrawnCardContext } from "./context/DrawnCardContext";
 import logo from "./logo.svg";
 import InfoBelt from "./components/InfoBelt";
 import Menu from "./components/Menu";
 import DeckPanel from "./components/DeckPanel";
 import Player from "./components/Player";
 import PlayerAction from "./components/PlayerAction";
+import { ACTIONS } from "./reducers/drawnCardReducer";
 
 export default function App() {
   const [deck, setDeck] = useState([]);
   const [playerOneDeck, setPlayerOneDeck] = useState([]);
   const [playerTwoDeck, setPlayerTwoDeck] = useState([]);
-  const [cardDrawnFromDeck, setCardDrawnFromDeck] = useState(null);
+  const { dispatch } = useContext(DrawnCardContext);
+  const [playerOneTurn, setPlayerOneTurn] = useState(true);
+  // const [cardDrawnFromDeck, setCardDrawnFromDeck] = useState(null);
+  // console.log(dispatch);
 
   // functions
   const createDeck = () => {
@@ -24,21 +29,22 @@ export default function App() {
   };
 
   const shuffleDeck = (deck) => {
-    let n = deck.length;
+    let index = deck.length;
     let oldCard;
     let newIndex;
 
-    while (n) {
-      newIndex = Math.floor(Math.random() * n--);
-      oldCard = deck[n];
-      deck[n] = deck[newIndex];
+    while (index) {
+      newIndex = Math.floor(Math.random() * index--);
+      oldCard = deck[index];
+      deck[index] = deck[newIndex];
       deck[newIndex] = oldCard;
     }
     return deck;
   };
 
-  const drawCard = (card) => {
-    setCardDrawnFromDeck(card);
+  const drawCard = () => {
+    const drawnCard = deck.shift();
+    dispatch({ type: ACTIONS.DRAW, card: { ...drawnCard } });
   };
 
   useEffect(() => {
@@ -57,9 +63,12 @@ export default function App() {
     setDeck(shuffledDeck);
   }, []);
 
+  const changeTurn = () => {
+    setPlayerOneTurn((prevTurn) => !prevTurn);
+  };
+
   console.log("App deck", deck);
   console.log("App players decks", playerOneDeck, playerTwoDeck);
-  console.log("App drawnCard", cardDrawnFromDeck);
 
   return (
     <div className="App">
@@ -67,14 +76,25 @@ export default function App() {
         <img src={logo} alt="Typographic logo of KOBO" />
       </div>
 
-      <InfoBelt />
+      <InfoBelt playerTurn={playerOneTurn} />
       <Menu />
       <DeckPanel deck={deck} drawCard={drawCard} />
 
       <div className="players-wrap white br-20">
-        <Player cards={playerOneDeck} />
-        <PlayerAction cardDrawnFromDeck={cardDrawnFromDeck} />
-        <Player cards={playerTwoDeck} />
+        <Player
+          cards={playerOneDeck}
+          playerTurn={playerOneTurn}
+          changeTurn={changeTurn}
+        />
+        <PlayerAction
+          playerDeck={playerOneTurn ? playerOneDeck : playerTwoDeck}
+          changeTurn={changeTurn}
+        />
+        <Player
+          cards={playerTwoDeck}
+          playerTurn={!playerOneTurn}
+          changeTurn={changeTurn}
+        />
       </div>
     </div>
   );

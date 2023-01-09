@@ -1,11 +1,49 @@
-import React from "react";
+import React, { useContext, useState } from "react";
+import { DrawnCardContext } from "../context/DrawnCardContext";
+import { RejectedCardContext } from "../context/RejectedCardContext";
+import { ACTIONS } from "../reducers/drawnCardReducer";
 import Card from "./Card";
+import IndexButtons from "./IndexButtons";
 
-export default function PlayerAction({ cardDrawnFromDeck }) {
+export default function PlayerAction({ playerDeck, changeTurn }) {
+  const { cardDrawnFromDeck, dispatch } = useContext(DrawnCardContext);
+  const { setRejectedCardsArr } = useContext(RejectedCardContext);
+  const [showIndexButtons, setShowIndexButtons] = useState(false);
+
+  const handleRejection = () => {
+    setRejectedCardsArr((prevArr) => {
+      prevArr.unshift(cardDrawnFromDeck);
+      return prevArr;
+    });
+    dispatch({ type: ACTIONS.REJECT });
+    changeTurn();
+  };
   console.log("Player Action", cardDrawnFromDeck);
+
+  const showReplacementButtons = () => {
+    console.log("I want to replace", cardDrawnFromDeck);
+    setShowIndexButtons((indexButtons) => !indexButtons);
+  };
+
+  const handleReplacement = (index) => {
+    const replacedCard = playerDeck[index];
+    playerDeck[index] = cardDrawnFromDeck;
+    setRejectedCardsArr((prevArr) => {
+      prevArr.unshift(replacedCard);
+      return prevArr;
+    });
+    dispatch({ type: ACTIONS.REJECT });
+    setShowIndexButtons(false);
+    changeTurn();
+  };
+
   return (
     <div className="player-action">
-      <div id="reject-btn" className="btn">
+      <div
+        id="reject-btn"
+        className="btn"
+        onClick={cardDrawnFromDeck ? handleRejection : null}
+      >
         reject
       </div>
       <div className="deck-drawn">
@@ -15,9 +53,20 @@ export default function PlayerAction({ cardDrawnFromDeck }) {
           <div className="card disabled"></div>
         )}
       </div>
-      <div id="replace-btn" className="btn">
-        replace
-      </div>
+      {showIndexButtons ? (
+        <IndexButtons
+          playerDeck={playerDeck}
+          replaceCard={(index) => handleReplacement(index)}
+        />
+      ) : (
+        <div
+          id="replace-btn"
+          className="btn"
+          onClick={cardDrawnFromDeck ? showReplacementButtons : null}
+        >
+          replace
+        </div>
+      )}
     </div>
   );
 }
