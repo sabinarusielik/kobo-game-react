@@ -15,6 +15,7 @@ export default function App() {
   const [playerTwoDeck, setPlayerTwoDeck] = useState([]);
   const { dispatch } = useContext(DrawnCardContext);
   const [playerOneTurn, setPlayerOneTurn] = useState(true);
+  const [startDrawingFromDeck, setStartDrawingFromDeck] = useState(0);
   // const [cardDrawnFromDeck, setCardDrawnFromDeck] = useState(null);
   // console.log(dispatch);
 
@@ -45,6 +46,10 @@ export default function App() {
   const drawCard = () => {
     const drawnCard = deck.shift();
     dispatch({ type: ACTIONS.DRAW, card: { ...drawnCard } });
+  };
+
+  const startDrawing = () => {
+    setStartDrawingFromDeck(startDrawingFromDeck + 1);
   };
 
   useEffect(() => {
@@ -78,13 +83,17 @@ export default function App() {
 
       <InfoBelt playerTurn={playerOneTurn} />
       <Menu />
-      <DeckPanel deck={deck} drawCard={drawCard} />
+      <DeckPanel
+        deck={deck}
+        drawCard={startDrawingFromDeck === 2 ? drawCard : null}
+      />
 
       <div className="players-wrap white br-20">
         <Player
           cards={playerOneDeck}
           playerTurn={playerOneTurn}
           changeTurn={changeTurn}
+          startDrawing={startDrawing}
         />
         <PlayerAction
           playerDeck={playerOneTurn ? playerOneDeck : playerTwoDeck}
@@ -94,6 +103,7 @@ export default function App() {
           cards={playerTwoDeck}
           playerTurn={!playerOneTurn}
           changeTurn={changeTurn}
+          startDrawing={startDrawing}
         />
       </div>
     </div>
