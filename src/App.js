@@ -10,10 +10,10 @@ import PlayerAction from "./components/PlayerAction";
 import { ACTIONS } from "./reducers/drawnCardReducer";
 
 export default function App() {
+  const { cardDrawnFromDeck, dispatch } = useContext(DrawnCardContext);
   const [deck, setDeck] = useState([]);
   const [playerOneDeck, setPlayerOneDeck] = useState([]);
   const [playerTwoDeck, setPlayerTwoDeck] = useState([]);
-  const { dispatch } = useContext(DrawnCardContext);
   const [playerOneTurn, setPlayerOneTurn] = useState(true);
   const [startDrawingFromDeck, setStartDrawingFromDeck] = useState(0);
   // const [cardDrawnFromDeck, setCardDrawnFromDeck] = useState(null);
@@ -21,31 +21,37 @@ export default function App() {
 
   // functions
   const createDeck = () => {
-    return SUITS.flatMap((suit) => {
-      return VALUES.map((value) => {
+    return SUITS.flatMap(suit => {
+      return VALUES.map(value => {
         const card = { suit: suit, value: value };
         return card;
       });
     });
   };
 
-  const shuffleDeck = (deck) => {
-    let index = deck.length;
-    let oldCard;
-    let newIndex;
+  const shuffleDeck = deck => {
+    const deckCopy = Array.from(deck);
 
-    while (index) {
-      newIndex = Math.floor(Math.random() * index--);
-      oldCard = deck[index];
-      deck[index] = deck[newIndex];
-      deck[newIndex] = oldCard;
-    }
-    return deck;
+    deckCopy.forEach(
+      (card, index, array, currentIteration, newIndex, oldIndex) => {
+        currentIteration = array.length - index;
+        newIndex = Math.floor(Math.random() * currentIteration);
+        oldIndex = currentIteration - 1;
+
+        card = array[oldIndex];
+        array[oldIndex] = array[newIndex];
+        array[newIndex] = card;
+      }
+    );
+
+    return deckCopy;
   };
 
   const drawCard = () => {
-    const drawnCard = deck.shift();
-    dispatch({ type: ACTIONS.DRAW, card: { ...drawnCard } });
+    if (!cardDrawnFromDeck) {
+      const drawnCard = deck.shift();
+      dispatch({ type: ACTIONS.DRAW, card: { ...drawnCard } });
+    }
   };
 
   const startDrawing = () => {
@@ -66,10 +72,11 @@ export default function App() {
     setPlayerOneDeck(playerOneInitialCards);
     setPlayerTwoDeck(playerTwoInitialCards);
     setDeck(shuffledDeck);
+    console.log("!!!Fire useEffect");
   }, []);
 
   const changeTurn = () => {
-    setPlayerOneTurn((prevTurn) => !prevTurn);
+    setPlayerOneTurn(prevTurn => !prevTurn);
   };
 
   console.log("App deck", deck);
@@ -85,7 +92,7 @@ export default function App() {
       <Menu />
       <DeckPanel
         deck={deck}
-        drawCard={startDrawingFromDeck === 2 ? drawCard : null}
+        drawCard={() => startDrawingFromDeck === 2 && drawCard()}
       />
 
       <div className="players-wrap white br-20">

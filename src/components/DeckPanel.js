@@ -1,8 +1,11 @@
 import React, { useContext } from "react";
+
+import Card from "./Card";
+
 import { DrawnCardContext } from "../context/DrawnCardContext";
 import { RejectedCardContext } from "../context/RejectedCardContext";
+
 import { ACTIONS } from "../reducers/drawnCardReducer";
-import Card from "./Card";
 
 export default function DeckPanel({ drawCard }) {
   const { cardDrawnFromDeck, dispatch } = useContext(DrawnCardContext);
@@ -16,15 +19,12 @@ export default function DeckPanel({ drawCard }) {
   const handleRejectedDeckClick = () => {
     if (!cardDrawnFromDeck) {
       const rejectedCard = rejectedCardsArr[0];
-      setRejectedCardsArr((prevArr) => {
+      setRejectedCardsArr(prevArr => {
         prevArr.shift();
         return prevArr;
       });
       dispatch({ type: ACTIONS.DRAW, card: rejectedCard });
       console.log("Draw from rejected", rejectedCard, rejectedCardsArr);
-    } else {
-      console.log("card is drawn");
-      return;
     }
   };
 
@@ -39,9 +39,7 @@ export default function DeckPanel({ drawCard }) {
       </div>
       <div
         className="deck-rejected"
-        onClick={
-          rejectedCardsArr.length > 0 ? handleRejectedDeckClick : undefined
-        }
+        onClick={() => rejectedCardsArr.length > 0 && handleRejectedDeckClick()}
       >
         <h2>Rejected deck</h2>
         {rejectedCardsArr.length > 0 ? (

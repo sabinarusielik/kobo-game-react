@@ -4,21 +4,21 @@ export default function IndexButtons({ playerDeck, replaceCard }) {
   console.log(playerDeck);
   const buttons = [];
 
-  const handleIndexButtonClick = (index) => {
+  const handleIndexButtonClick = index => {
     replaceCard(index);
   };
 
-  for (let i = 0; i < playerDeck.length; i++) {
+  playerDeck.forEach((card, index) => {
     buttons.push(
       <div
         className="index-btn"
-        key={`button-${i}`}
-        onClick={() => handleIndexButtonClick(i)}
+        key={`button-${playerDeck[index].value}${playerDeck[index].suit}`}
+        onClick={() => handleIndexButtonClick(index)}
       >
-        {i + 1}
+        {index + 1}
       </div>
     );
-  }
+  });
 
   return <div className="index-btn-wrap">{buttons}</div>;
 }

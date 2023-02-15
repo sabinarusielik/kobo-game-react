@@ -11,12 +11,12 @@ export default function Card({
 
   const handleFrontClick = () => {
     handleFrontCounter();
-    setFlipped((prevSide) => !prevSide);
+    setFlipped(prevSide => !prevSide);
   };
 
   const handleBackClick = () => {
     handleBackCounter();
-    setFlipped((prevSide) => !prevSide);
+    setFlipped(prevSide => !prevSide);
   };
 
   if (flipped) {
@@ -26,7 +26,7 @@ export default function Card({
           card.suit === "♥" || card.suit === "♦" ? "red" : "black"
         }`}
         data-suit={card.suit}
-        onClick={!disableFlip ? handleFrontClick : null}
+        onClick={() => !disableFlip && handleFrontClick()}
       >
         {card.value}
       </div>
@@ -35,7 +35,7 @@ export default function Card({
     return (
       <div
         className="card back"
-        onClick={!disableFlip ? handleBackClick : null}
+        onClick={() => !disableFlip && handleBackClick()}
       >
         <div className="circle"></div>
       </div>
