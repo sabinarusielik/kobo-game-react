@@ -9,36 +9,49 @@ export default function Card({
 }) {
   const [flipped, setFlipped] = useState(flip);
 
-  const handleFrontClick = () => {
-    handleFrontCounter();
-    setFlipped(prevSide => !prevSide);
+  const changeCardFlip = () => setFlipped((prevSide) => !prevSide);
+
+  const handleClickOnCard = (clickHandlerFunction) => {
+    clickHandlerFunction();
+    changeCardFlip();
   };
 
-  const handleBackClick = () => {
-    handleBackCounter();
-    setFlipped(prevSide => !prevSide);
+  const handleKeyDownOnCard = (event, keyHandlerFunction) => {
+    if (event.key === "Enter") {
+      keyHandlerFunction();
+      changeCardFlip();
+    }
   };
 
   if (flipped) {
     return (
       <div
+        role="button"
+        tabIndex={0}
         className={`card front ${
           card.suit === "♥" || card.suit === "♦" ? "red" : "black"
         }`}
         data-suit={card.suit}
-        onClick={() => !disableFlip && handleFrontClick()}
+        onClick={() => !disableFlip && handleClickOnCard(handleFrontCounter)}
+        onKeyDown={(event) =>
+          !disableFlip && handleKeyDownOnCard(event, handleFrontCounter)
+        }
       >
         {card.value}
       </div>
     );
-  } else {
-    return (
-      <div
-        className="card back"
-        onClick={() => !disableFlip && handleBackClick()}
-      >
-        <div className="circle"></div>
-      </div>
-    );
   }
+  return (
+    <div
+      role="button"
+      tabIndex={0}
+      className="card back"
+      onClick={() => !disableFlip && handleClickOnCard(handleBackCounter)}
+      onKeyDown={(event) =>
+        !disableFlip && handleKeyDownOnCard(event, handleBackCounter)
+      }
+    >
+      <div className="circle" />
+    </div>
+  );
 }

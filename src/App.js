@@ -1,5 +1,5 @@
-import { SUITS, VALUES } from "./cardsData";
 import { useEffect, useState, useContext } from "react";
+import { SUITS, VALUES } from "./cardsData";
 import { DrawnCardContext } from "./context/DrawnCardContext";
 import logo from "./logo.svg";
 import InfoBelt from "./components/InfoBelt";
@@ -16,33 +16,30 @@ export default function App() {
   const [playerTwoDeck, setPlayerTwoDeck] = useState([]);
   const [playerOneTurn, setPlayerOneTurn] = useState(true);
   const [startDrawingFromDeck, setStartDrawingFromDeck] = useState(0);
-  // const [cardDrawnFromDeck, setCardDrawnFromDeck] = useState(null);
-  // console.log(dispatch);
 
   // functions
-  const createDeck = () => {
-    return SUITS.flatMap(suit => {
-      return VALUES.map(value => {
-        const card = { suit: suit, value: value };
+  const createDeck = () =>
+    SUITS.flatMap((suit) =>
+      VALUES.map((value) => {
+        const card = { suit, value };
         return card;
-      });
-    });
-  };
-
-  const shuffleDeck = deck => {
-    const deckCopy = Array.from(deck);
-
-    deckCopy.forEach(
-      (card, index, array, currentIteration, newIndex, oldIndex) => {
-        currentIteration = array.length - index;
-        newIndex = Math.floor(Math.random() * currentIteration);
-        oldIndex = currentIteration - 1;
-
-        card = array[oldIndex];
-        array[oldIndex] = array[newIndex];
-        array[newIndex] = card;
-      }
+      })
     );
+
+  const shuffleDeck = (createdDeck) => {
+    const deckCopy = Array.from(createdDeck);
+
+    deckCopy.forEach((card, index) => {
+      let cardElement = card;
+
+      const currentIteration = deckCopy.length - index;
+      const newIndex = Math.floor(Math.random() * currentIteration);
+      const oldIndex = currentIteration - 1;
+
+      cardElement = deckCopy[oldIndex];
+      deckCopy[oldIndex] = deckCopy[newIndex];
+      deckCopy[newIndex] = cardElement;
+    });
 
     return deckCopy;
   };
@@ -76,7 +73,7 @@ export default function App() {
   }, []);
 
   const changeTurn = () => {
-    setPlayerOneTurn(prevTurn => !prevTurn);
+    setPlayerOneTurn((prevTurn) => !prevTurn);
   };
 
   console.log("App deck", deck);

@@ -16,10 +16,16 @@ export default function DeckPanel({ drawCard }) {
     drawCard();
   };
 
+  const handleDeckKeyDown = (event) => {
+    if (event.key === "Enter") {
+      drawCard();
+    }
+  };
+
   const handleRejectedDeckClick = () => {
     if (!cardDrawnFromDeck) {
       const rejectedCard = rejectedCardsArr[0];
-      setRejectedCardsArr(prevArr => {
+      setRejectedCardsArr((prevArr) => {
         prevArr.shift();
         return prevArr;
       });
@@ -28,29 +34,47 @@ export default function DeckPanel({ drawCard }) {
     }
   };
 
+  const handleRejectedDeckKeyDown = (event, handlerFunction) => {
+    if (event.key === "Enter") {
+      handlerFunction();
+    }
+  };
+
   console.log("!!!Deck Panel RejectedCard", rejectedCardsArr);
   console.log("DeckPanel", cardDrawnFromDeck);
 
   return (
     <div className="deck-wrap">
-      <div className="deck-remaining" onClick={handleDeckClick}>
+      <div
+        role="button"
+        tabIndex={-1}
+        className="deck-remaining"
+        onClick={handleDeckClick}
+        onKeyDown={(event) => handleDeckKeyDown(event)}
+      >
         <h2>Draw deck</h2>
-        <Card key="deck-card" disableFlip={true} flip={false} />
+        <Card key="deck-card" disableFlip flip={false} />
       </div>
       <div
+        role="button"
+        tabIndex={-1}
         className="deck-rejected"
         onClick={() => rejectedCardsArr.length > 0 && handleRejectedDeckClick()}
+        onKeyDown={(event) =>
+          rejectedCardsArr.length > 0 &&
+          handleRejectedDeckKeyDown(event, handleRejectedDeckClick)
+        }
       >
         <h2>Rejected deck</h2>
         {rejectedCardsArr.length > 0 ? (
           <Card
             key="rejected-card"
             card={rejectedCardsArr[0]}
-            disableFlip={true}
-            flip={true}
+            disableFlip
+            flip
           />
         ) : (
-          <div className="card disabled rejected"></div>
+          <div className="card disabled rejected" />
         )}
       </div>
     </div>

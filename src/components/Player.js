@@ -30,22 +30,22 @@ export default function Player({
   return (
     <div className="player-container">
       <div className="cards-container">
-        {cards.map(card => {
-          return (
-            <Card
-              key={card.suit + card.value}
-              card={card}
-              flip={false}
-              disableFlip={disableFlip}
-              handleFrontCounter={
-                playerTurn ? (frontCount < 2 ? handleFrontCounter : null) : null
-              }
-              handleBackCounter={
-                playerTurn ? (backCount < 2 ? handleBackCounter : null) : null
-              }
-            />
-          );
-        })}
+        {cards.map((card) => (
+          <Card
+            key={card.suit + card.value}
+            card={card}
+            flip={false}
+            disableFlip={disableFlip}
+            handleFrontCounter={
+              // eslint-disable-next-line no-nested-ternary
+              playerTurn ? (frontCount < 2 ? handleFrontCounter : null) : null
+            }
+            handleBackCounter={
+              // eslint-disable-next-line no-nested-ternary
+              playerTurn ? (backCount < 2 ? handleBackCounter : null) : null
+            }
+          />
+        ))}
       </div>
     </div>
   );

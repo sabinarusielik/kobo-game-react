@@ -1,13 +1,19 @@
-import React, { createContext, useReducer } from "react";
+import React, { createContext, useReducer, useMemo } from "react";
 import { drawnCardReducer } from "../reducers/drawnCardReducer";
 
 export const DrawnCardContext = createContext();
 
-export default function DrawnCardContextProvider(props) {
+export default function DrawnCardContextProvider({ children }) {
   const [cardDrawnFromDeck, dispatch] = useReducer(drawnCardReducer, null);
+
+  const cardDrawnFromDeckContextProvider = useMemo(() => ({
+    cardDrawnFromDeck,
+    dispatch,
+  }));
+
   return (
-    <DrawnCardContext.Provider value={{ cardDrawnFromDeck, dispatch }}>
-      {props.children}
+    <DrawnCardContext.Provider value={cardDrawnFromDeckContextProvider}>
+      {children}
     </DrawnCardContext.Provider>
   );
 }

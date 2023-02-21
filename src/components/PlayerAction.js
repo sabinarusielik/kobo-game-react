@@ -27,6 +27,7 @@ export default function PlayerAction({ playerDeck, changeTurn }) {
 
   const handleReplacement = (index) => {
     const replacedCard = playerDeck[index];
+    // eslint-disable-next-line no-param-reassign
     playerDeck[index] = cardDrawnFromDeck;
     setRejectedCardsArr((prevArr) => {
       prevArr.unshift(replacedCard);
@@ -37,20 +38,31 @@ export default function PlayerAction({ playerDeck, changeTurn }) {
     changeTurn();
   };
 
+  const handleOnKeyDown = (event, handlerFunction) => {
+    if (event.key === "Enter") {
+      handlerFunction();
+    }
+  };
+
   return (
     <div className="player-action">
       <div
+        role="button"
+        tabIndex={0}
         id="reject-btn"
         className="btn"
-        onClick={cardDrawnFromDeck ? handleRejection : null}
+        onClick={() => cardDrawnFromDeck && handleRejection()}
+        onKeyDown={(event) =>
+          cardDrawnFromDeck && handleOnKeyDown(event, handleRejection)
+        }
       >
         reject
       </div>
       <div className="deck-drawn">
         {cardDrawnFromDeck ? (
-          <Card card={cardDrawnFromDeck} disableFlip={true} flip={true} />
+          <Card card={cardDrawnFromDeck} disableFlip flip />
         ) : (
-          <div className="card disabled"></div>
+          <div className="card disabled" />
         )}
       </div>
       {showIndexButtons ? (
@@ -60,9 +72,14 @@ export default function PlayerAction({ playerDeck, changeTurn }) {
         />
       ) : (
         <div
+          role="button"
+          tabIndex={0}
           id="replace-btn"
           className="btn"
-          onClick={cardDrawnFromDeck ? showReplacementButtons : null}
+          onClick={() => cardDrawnFromDeck && showReplacementButtons()}
+          onKeyDown={(event) =>
+            cardDrawnFromDeck && handleOnKeyDown(event, showReplacementButtons)
+          }
         >
           replace
         </div>
