@@ -1,4 +1,4 @@
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState, useContext, useRef } from "react";
 import { SUITS, VALUES } from "./cardsData";
 import { DrawnCardContext } from "./context/DrawnCardContext";
 import logo from "./logo.svg";
@@ -16,6 +16,7 @@ export default function App() {
   const [playerTwoDeck, setPlayerTwoDeck] = useState([]);
   const [playerOneTurn, setPlayerOneTurn] = useState(true);
   const [startDrawingFromDeck, setStartDrawingFromDeck] = useState(0);
+  const firedFirstEffectRef = useRef(false);
 
   // functions
   const createDeck = () =>
@@ -56,6 +57,9 @@ export default function App() {
   };
 
   useEffect(() => {
+    if (firedFirstEffectRef.current) return;
+    firedFirstEffectRef.current = true;
+
     // create and shuffle deck
     const shuffledDeck = shuffleDeck(createDeck());
 
