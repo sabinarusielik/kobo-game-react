@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 export default function InfoBelt({ playerTurn }) {
   return (
@@ -7,3 +8,7 @@ export default function InfoBelt({ playerTurn }) {
     </div>
   );
 }
+
+InfoBelt.propTypes = {
+  playerTurn: PropTypes.bool.isRequired,
+};

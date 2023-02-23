@@ -1,5 +1,7 @@
 import React, { useContext } from "react";
 
+import PropTypes from "prop-types";
+
 import Card from "./Card";
 
 import { DrawnCardContext } from "../context/DrawnCardContext";
@@ -53,7 +55,7 @@ export default function DeckPanel({ drawCard }) {
         onKeyDown={(event) => handleDeckKeyDown(event)}
       >
         <h2>Draw deck</h2>
-        <Card key="deck-card" disableFlip flip={false} />
+        <Card key="deck-card" disableFlip flip={false} card={{}} />
       </div>
       <div
         role="button"
@@ -80,3 +82,7 @@ export default function DeckPanel({ drawCard }) {
     </div>
   );
 }
+
+DeckPanel.propTypes = {
+  drawCard: PropTypes.func.isRequired,
+};

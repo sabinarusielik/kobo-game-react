@@ -91,10 +91,7 @@ export default function App() {
 
       <InfoBelt playerTurn={playerOneTurn} />
       <Menu />
-      <DeckPanel
-        deck={deck}
-        drawCard={() => startDrawingFromDeck === 2 && drawCard()}
-      />
+      <DeckPanel drawCard={() => startDrawingFromDeck === 2 && drawCard()} />
 
       <div className="players-wrap white br-20">
         <Player

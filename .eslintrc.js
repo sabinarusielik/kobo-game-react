@@ -15,12 +15,17 @@ module.exports = {
   },
   plugins: ["react", "prettier"],
   rules: {
-    "prettier/prettier": "error",
+    "prettier/prettier": [
+      "error",
+      {
+        endOfLine: "auto",
+      },
+    ],
     "react/react-in-jsx-scope": "off",
     "react/jsx-filename-extension": [1, { extensions: [".js", ".jsx"] }],
     "no-unused-vars": "warn",
     "no-console": "off",
     // for before prop types package install:
-    "react/prop-types": [0],
+    // "react/prop-types": [0],
   },
 };

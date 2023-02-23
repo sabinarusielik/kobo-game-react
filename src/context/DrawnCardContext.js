@@ -1,4 +1,5 @@
 import React, { createContext, useReducer, useMemo } from "react";
+import PropTypes from "prop-types";
 import { drawnCardReducer } from "../reducers/drawnCardReducer";
 
 export const DrawnCardContext = createContext();
@@ -17,3 +18,7 @@ export default function DrawnCardContextProvider({ children }) {
     </DrawnCardContext.Provider>
   );
 }
+
+DrawnCardContextProvider.propTypes = {
+  children: PropTypes.element.isRequired,
+};

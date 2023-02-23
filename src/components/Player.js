@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import PropTypes from "prop-types";
 import Card from "./Card";
 
 export default function Player({
@@ -50,3 +51,15 @@ export default function Player({
     </div>
   );
 }
+
+Player.propTypes = {
+  cards: PropTypes.arrayOf(
+    PropTypes.shape({
+      suit: PropTypes.string,
+      value: PropTypes.string,
+    })
+  ).isRequired,
+  playerTurn: PropTypes.bool.isRequired,
+  changeTurn: PropTypes.func.isRequired,
+  startDrawing: PropTypes.func.isRequired,
+};

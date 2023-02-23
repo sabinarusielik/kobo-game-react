@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 export default function IndexButtons({ playerDeck, replaceCard }) {
   console.log(playerDeck);
@@ -33,3 +34,13 @@ export default function IndexButtons({ playerDeck, replaceCard }) {
 
   return <div className="index-btn-wrap">{buttons}</div>;
 }
+
+IndexButtons.propTypes = {
+  playerDeck: PropTypes.arrayOf(
+    PropTypes.shape({
+      suit: PropTypes.string,
+      value: PropTypes.string,
+    })
+  ).isRequired,
+  replaceCard: PropTypes.func.isRequired,
+};

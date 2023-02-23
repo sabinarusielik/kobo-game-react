@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 
+import PropTypes from "prop-types";
+
 export default function Card({
   card,
   disableFlip,
@@ -8,6 +10,8 @@ export default function Card({
   handleBackCounter,
 }) {
   const [flipped, setFlipped] = useState(flip);
+
+  console.log("Card!!!!", card);
 
   const changeCardFlip = () => setFlipped((prevSide) => !prevSide);
 
@@ -55,3 +59,20 @@ export default function Card({
     </div>
   );
 }
+
+Card.propTypes = {
+  disableFlip: PropTypes.bool.isRequired,
+  flip: PropTypes.bool.isRequired,
+  card: PropTypes.shape({
+    suit: PropTypes.string,
+    value: PropTypes.string,
+  }),
+  handleFrontCounter: PropTypes.func,
+  handleBackCounter: PropTypes.func,
+};
+
+Card.defaultProps = {
+  card: PropTypes.objectOf(PropTypes.string),
+  handleFrontCounter: PropTypes.func,
+  handleBackCounter: PropTypes.func,
+};

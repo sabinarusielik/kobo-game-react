@@ -1,4 +1,5 @@
 import React, { createContext, useState, useMemo } from "react";
+import PropTypes from "prop-types";
 
 export const RejectedCardContext = createContext();
 
@@ -19,3 +20,7 @@ export default function RejectedCardContextProvider({ children }) {
     </RejectedCardContext.Provider>
   );
 }
+
+RejectedCardContextProvider.propTypes = {
+  children: PropTypes.element.isRequired,
+};

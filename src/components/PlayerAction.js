@@ -1,4 +1,5 @@
 import React, { useContext, useState } from "react";
+import PropTypes from "prop-types";
 import { DrawnCardContext } from "../context/DrawnCardContext";
 import { RejectedCardContext } from "../context/RejectedCardContext";
 import { ACTIONS } from "../reducers/drawnCardReducer";
@@ -87,3 +88,13 @@ export default function PlayerAction({ playerDeck, changeTurn }) {
     </div>
   );
 }
+
+PlayerAction.propTypes = {
+  playerDeck: PropTypes.arrayOf(
+    PropTypes.shape({
+      suit: PropTypes.string,
+      value: PropTypes.string,
+    })
+  ).isRequired,
+  changeTurn: PropTypes.func.isRequired,
+};
