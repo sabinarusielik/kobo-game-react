@@ -11,8 +11,6 @@ export default function Card({
 }) {
   const [flipped, setFlipped] = useState(flip);
 
-  console.log("Card!!!!", card);
-
   const changeCardFlip = () => setFlipped((prevSide) => !prevSide);
 
   const handleClickOnCard = (clickHandlerFunction) => {
@@ -67,8 +65,8 @@ Card.propTypes = {
     suit: PropTypes.string,
     value: PropTypes.string,
   }),
-  handleFrontCounter: PropTypes.func,
-  handleBackCounter: PropTypes.func,
+  handleFrontCounter: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]),
+  handleBackCounter: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]),
 };
 
 Card.defaultProps = {

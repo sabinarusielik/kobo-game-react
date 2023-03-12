@@ -21,11 +21,15 @@ export default function Player({
   }, [frontCount, backCount]);
 
   const handleFrontCounter = () => {
-    setFrontCount(frontCount + 1);
+    if (playerTurn) {
+      setFrontCount(frontCount + 1);
+    }
   };
 
   const handleBackCounter = () => {
-    setBackCount(backCount + 1);
+    if (playerTurn) {
+      setBackCount(backCount + 1);
+    }
   };
 
   return (
@@ -37,14 +41,8 @@ export default function Player({
             card={card}
             flip={false}
             disableFlip={disableFlip}
-            handleFrontCounter={
-              // eslint-disable-next-line no-nested-ternary
-              playerTurn ? (frontCount < 2 ? handleFrontCounter : null) : null
-            }
-            handleBackCounter={
-              // eslint-disable-next-line no-nested-ternary
-              playerTurn ? (backCount < 2 ? handleBackCounter : null) : null
-            }
+            handleFrontCounter={frontCount < 2 && handleFrontCounter}
+            handleBackCounter={backCount < 2 && handleBackCounter}
           />
         ))}
       </div>
