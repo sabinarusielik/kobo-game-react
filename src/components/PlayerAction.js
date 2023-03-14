@@ -5,6 +5,7 @@ import { RejectedCardContext } from "../context/RejectedCardContext";
 import { ACTIONS } from "../reducers/drawnCardReducer";
 import Card from "./Card";
 import IndexButtons from "./IndexButtons";
+import Button from "./Button";
 
 export default function PlayerAction({ playerDeck, changeTurn }) {
   const { cardDrawnFromDeck, dispatch } = useContext(DrawnCardContext);
@@ -39,26 +40,14 @@ export default function PlayerAction({ playerDeck, changeTurn }) {
     changeTurn();
   };
 
-  const handleOnKeyDown = (event, handlerFunction) => {
-    if (event.key === "Enter") {
-      handlerFunction();
-    }
-  };
-
   return (
     <div className="player-action">
-      <div
-        role="button"
-        tabIndex={0}
-        id="reject-btn"
-        className="btn"
-        onClick={() => cardDrawnFromDeck && handleRejection()}
-        onKeyDown={(event) =>
-          cardDrawnFromDeck && handleOnKeyDown(event, handleRejection)
-        }
+      <Button
+        className="btn reject"
+        clickHandler={() => cardDrawnFromDeck && handleRejection()}
       >
         reject
-      </div>
+      </Button>
       <div className="deck-drawn">
         {cardDrawnFromDeck ? (
           <Card card={cardDrawnFromDeck} disableFlip flip />
@@ -72,18 +61,12 @@ export default function PlayerAction({ playerDeck, changeTurn }) {
           replaceCard={(index) => handleReplacement(index)}
         />
       ) : (
-        <div
-          role="button"
-          tabIndex={0}
-          id="replace-btn"
-          className="btn"
-          onClick={() => cardDrawnFromDeck && showReplacementButtons()}
-          onKeyDown={(event) =>
-            cardDrawnFromDeck && handleOnKeyDown(event, showReplacementButtons)
-          }
+        <Button
+          className="btn replace"
+          clickHandler={() => cardDrawnFromDeck && showReplacementButtons()}
         >
           replace
-        </div>
+        </Button>
       )}
     </div>
   );

@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import Button from "./Button";
 
 export default function IndexButtons({ playerDeck, replaceCard }) {
   console.log(playerDeck);
@@ -9,26 +10,15 @@ export default function IndexButtons({ playerDeck, replaceCard }) {
     replaceCard(index);
   };
 
-  const handleIndexButtonKeyDown = (event, handlerFunction) => {
-    if (event.key === "Enter") {
-      handlerFunction();
-    }
-  };
-
   playerDeck.forEach((card, index) => {
     buttons.push(
-      <div
-        role="button"
-        tabIndex={0}
+      <Button
         className="index-btn"
         key={`button-${playerDeck[index].value}${playerDeck[index].suit}`}
-        onClick={() => handleIndexButtonClick(index)}
-        onKeyDown={(event) =>
-          handleIndexButtonKeyDown(event, () => handleIndexButtonClick(index))
-        }
+        clickHandler={() => handleIndexButtonClick(index)}
       >
         {index + 1}
-      </div>
+      </Button>
     );
   });
 

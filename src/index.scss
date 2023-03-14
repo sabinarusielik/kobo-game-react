@@ -169,6 +169,12 @@ h2 {
   }
 }
 
+button {
+  font-family: inherit;
+  font-size: inherit;
+  border: none;
+}
+
 .btn {
   background-color: $beige;
   border: none;
@@ -176,24 +182,20 @@ h2 {
   border-radius: 20px;
   cursor: pointer;
   font-weight: $fw-700;
-}
-
-#reject-btn {
-  color: $orange;
-}
-
-#reject-btn:hover {
-  color: $beige;
-  background-color: $orange;
-}
-
-#replace-btn {
-  color: $green;
-}
-
-#replace-btn:hover {
-  color: $beige;
-  background-color: $green;
+  &.reject {
+    color: $orange;
+    &:hover {
+      color: $beige;
+      background-color: $orange;
+    }
+  }
+  &.replace {
+    color: $green;
+    &:hover {
+      color: $beige;
+      background-color: $green;
+    }
+  }
 }
 
 .br-20 {
@@ -225,5 +227,8 @@ h2 {
     color: $white;
     font-feature-settings: "pnum" on, "lnum" on;
     cursor: pointer;
+    &:hover{
+      background-color: $orange;
+    }
   }
 }
