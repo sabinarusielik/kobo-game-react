@@ -145,6 +145,10 @@ h2 {
   &.disabled {
     background-color: $beige;
     cursor: auto;
+
+    &.rejected {
+      background-color: $white;
+    }
   }
 }
 
@@ -165,6 +169,12 @@ h2 {
   }
 }
 
+button {
+  font-family: inherit;
+  font-size: inherit;
+  border: none;
+}
+
 .btn {
   background-color: $beige;
   border: none;
@@ -172,24 +182,20 @@ h2 {
   border-radius: 20px;
   cursor: pointer;
   font-weight: $fw-700;
-}
-
-#reject-btn {
-  color: $orange;
-}
-
-#reject-btn:hover {
-  color: $beige;
-  background-color: $orange;
-}
-
-#replace-btn {
-  color: $green;
-}
-
-#replace-btn:hover {
-  color: $beige;
-  background-color: $green;
+  &.reject {
+    color: $orange;
+    &:hover {
+      color: $beige;
+      background-color: $orange;
+    }
+  }
+  &.replace {
+    color: $green;
+    &:hover {
+      color: $beige;
+      background-color: $green;
+    }
+  }
 }
 
 .br-20 {
@@ -202,4 +208,27 @@ h2 {
 
 .orange {
   background-color: $orange;
+}
+
+.index-btn-wrap {
+  display: flex;
+  justify-items: space-around;
+  gap: 1rem;
+  padding: 1.2rem;
+
+  .index-btn {
+    aspect-ratio: 1 / 1;
+    width: $s-40;
+    background-color: $green;
+    border-radius: 20rem;
+    font-size: calc($s-40 / 2);
+    display: grid;
+    place-content: center;
+    color: $white;
+    font-feature-settings: "pnum" on, "lnum" on;
+    cursor: pointer;
+    &:hover{
+      background-color: $orange;
+    }
+  }
 }
