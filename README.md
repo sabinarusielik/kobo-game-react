@@ -1,70 +1,13 @@
-# Getting Started with Create React App
+# KOBO Card Game
+Game of Kobo in digital version! Currently work in progress.
+This version of KOBO is a two player game. Each player takes turn and tries to lower the sum of their points as much as possible. The player with the lowest count wins!
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## How to play?
+1. Each player gets 4 cards but can only flip and see 2 of them at the beginning of the game.
+2. Players take turns and draw one card from the remaining deck or from the rejected cards deck (which are facing up). Player decides if they want to replace one of their cards with the new one or get rid of it.
+3. When player gets rid of a card they do it so that the opponent can also see what card it was. No matter if the rejected card was the replaced one or the newly drawn one.
+4. If the value of the rejected card matches with one (or more) cards from the player's deck they can get rid of it - no matter whose turn it is. For example you can throw away 6 of any suits on the 6 that your opponent just rejected.
+5. The goal of the game is to have the lowest possible sum of card values. If your feeling confident in your score simply shout "KOBO!". Your opponent makes their last turn and you both reveal your counts to each other. **One with the lowest sum wins!**
 
-## Available Scripts
-
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## What values do the cards have?
+Going up from Ace through 2 to 10 ending at Jack, Queen and King the values consecutively go from 1 to 13. There is an exception though: both red Kings' values are 0.
