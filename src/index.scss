@@ -30,7 +30,7 @@ body {
   display: grid;
   grid-template-columns: 3fr 8fr 1fr;
   gap: 1.25rem;
-  height: 120vh;
+  height: 100vh;
 }
 
 h2 {
@@ -68,9 +68,13 @@ h2 {
   align-content: start;
   justify-content: center;
   height: 100%;
-  padding: $s-40 0;
+  padding: $s-40 0 0;
   overflow: hidden;
   transition: all 0.5s ease;
+  &.second-player-align {
+    align-content: end;
+    padding: 0 0 $s-40;
+  }
 }
 
 .player-action {
@@ -172,6 +176,7 @@ h2 {
 button {
   font-family: inherit;
   font-size: inherit;
+  font-weight: $fw-700;
   border: none;
 }
 
@@ -181,7 +186,6 @@ button {
   padding: $s-40;
   border-radius: 20px;
   cursor: pointer;
-  font-weight: $fw-700;
   &.reject {
     color: $orange;
     &:hover {
@@ -191,6 +195,19 @@ button {
   }
   &.replace {
     color: $green;
+    &:hover {
+      color: $beige;
+      background-color: $green;
+    }
+  }
+  &.kobo {
+    color: $green;
+    border: 5px $green solid;
+    padding: 0;
+    span {
+      writing-mode: vertical-rl;
+      text-orientation: mixed;
+    }
     &:hover {
       color: $beige;
       background-color: $green;
