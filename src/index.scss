@@ -227,6 +227,12 @@ button {
   background-color: $orange;
 }
 
+.divider {
+  margin: $s-40;
+  border: 20px solid $beige;
+  border-radius: 20px;
+}
+
 .index-btn-wrap {
   display: flex;
   justify-items: space-around;

@@ -5,12 +5,13 @@ export default function KoboButton({ declareWinner, resetGame }) {
   const [koboIsDeclared, setKoboIsDeclared] = useState(false);
 
   const handleKoboClick = () => {
-    declareWinner();
-    setKoboIsDeclared(true);
     if (koboIsDeclared) {
       resetGame();
       setKoboIsDeclared(false);
+      return;
     }
+    declareWinner();
+    setKoboIsDeclared(true);
   };
 
   return (

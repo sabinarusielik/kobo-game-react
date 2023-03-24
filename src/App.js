@@ -70,6 +70,7 @@ export default function App() {
     setDeck([]);
     setPlayerOneDeck([]);
     setPlayerTwoDeck([]);
+    setPlayerOneTurn(true);
 
     // create and shuffle deck
     const shuffledDeck = shuffleDeck(createDeck());
@@ -141,10 +142,14 @@ export default function App() {
           startDrawing={startDrawing}
           stopGame={stopGame}
         />
-        <PlayerAction
-          playerDeck={playerOneTurn ? playerOneDeck : playerTwoDeck}
-          changeTurn={changeTurn}
-        />
+        {!stopGame ? (
+          <PlayerAction
+            playerDeck={playerOneTurn ? playerOneDeck : playerTwoDeck}
+            changeTurn={changeTurn}
+          />
+        ) : (
+          <div className="divider" />
+        )}
         <Player
           cards={playerTwoDeck}
           playerTurn={!playerOneTurn}
