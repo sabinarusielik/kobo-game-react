@@ -253,5 +253,10 @@ button {
     &:hover{
       background-color: $orange;
     }
+    &.back {
+      background-color: $orange;
+      position: absolute;
+      right: calc($s-40 / 6);
+    }
   }
 }

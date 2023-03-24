@@ -59,6 +59,7 @@ export default function PlayerAction({ playerDeck, changeTurn }) {
         <IndexButtons
           playerDeck={playerDeck}
           replaceCard={(index) => handleReplacement(index)}
+          showReplacementButtons={showReplacementButtons}
         />
       ) : (
         <Button
