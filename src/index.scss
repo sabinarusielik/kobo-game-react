@@ -165,6 +165,7 @@ h2 {
   border-radius: 20rem;
   gap: 0.25rem;
   cursor: pointer;
+  background-color: inherit;
 
   .line {
     height: 4px;
@@ -213,6 +214,15 @@ button {
       background-color: $green;
     }
   }
+  &.save {
+    color: $orange;
+    padding: calc($s-40 / 2);
+    font-size: 1.5rem;
+    &:hover {
+      color: $beige;
+      background-color: $orange;
+    }
+  }
 }
 
 .br-20 {
@@ -259,4 +269,93 @@ button {
       right: calc($s-40 / 6);
     }
   }
+}
+
+.modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 75vw;
+  height: 75vh;
+  background-color: white;
+  border-radius: 20px;
+  overflow: hidden;
+  display: flex;
+  line-height: 1.3;
+}
+
+.overlay {
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  background: rgba(51, 51, 51, 0.3);
+  backdrop-filter: blur(10px);
+}
+
+.modal-left-wrap {
+  display: grid;
+  justify-content: end;
+  padding: calc($s-40 * 2);
+  background-color: $green;
+  color: $beige;
+  text-align: right;
+  width: 60%;
+  img {
+    justify-self: end;
+  }
+  h1 {
+    max-width: calc($s-100 * 4);
+    align-self: end;
+    font-size: $s-40;
+  }
+}
+.modal-right-wrap {
+  display: grid;
+  align-content: space-between;
+  padding: calc($s-40 * 2);
+  .text-wrap {
+    max-width: ($s-100 * 5);
+    font-size: 1rem;
+    * {
+      margin-bottom: 20px;
+    }
+    ol {
+      padding-left: $s-40;
+      li {
+        margin-bottom: 10px;
+      }
+    }
+  }
+  h3 {
+    font-size: 1.5rem;
+  }
+}
+
+form {
+  display: flex;
+  margin-top: 20px;
+  gap: 20px;
+  
+  input[type="text"] {
+    font-family: "Syne", sans-serif;
+    border: none;
+    background-color: #f6f5f0;
+    font-size: 24px;
+    font-weight: 600;
+    border-radius: 20px;
+    padding: 20px;
+    width: 100%;
+  }
+}
+
+button.close-button {
+  position: absolute;
+  top: 40px;
+  right: 40px;
+  background-color: white;
+  color: #f87248;
+  cursor: pointer;
 }

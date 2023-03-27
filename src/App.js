@@ -17,6 +17,8 @@ export default function App() {
   const [deck, setDeck] = useState([]);
   const [playerOneDeck, setPlayerOneDeck] = useState([]);
   const [playerTwoDeck, setPlayerTwoDeck] = useState([]);
+  const [playerOneName, setPlayerOneName] = useState("Player One");
+  const [playerTwoName, setPlayerTwoName] = useState("Player Two");
   const [playerOneTurn, setPlayerOneTurn] = useState(true);
   const [winner, setWinner] = useState("");
   const [startDrawingFromDeck, setStartDrawingFromDeck] = useState(0);
@@ -113,7 +115,7 @@ export default function App() {
   const declareWinner = () => {
     const playerOneSum = countPlayersPoints(playerOneDeck);
     const playerTwoSum = countPlayersPoints(playerTwoDeck);
-    setWinner(playerOneSum < playerTwoSum ? "Player One" : "Player Two");
+    setWinner(playerOneSum < playerTwoSum ? playerOneName : playerTwoName);
     setStopGame(true);
   };
 
@@ -126,8 +128,16 @@ export default function App() {
         <img src={logo} alt="Typographic logo of KOBO" />
       </div>
 
-      <InfoBelt playerTurn={playerOneTurn} winner={winner} />
-      <Menu />
+      <InfoBelt
+        playerTurn={playerOneTurn}
+        winner={winner}
+        playersNames={{ playerOne: playerOneName, playerTwo: playerTwoName }}
+      />
+      <Menu
+        playersNames={{ playerOne: playerOneName, playerTwo: playerTwoName }}
+        setPlayerOneName={setPlayerOneName}
+        setPlayerTwoName={setPlayerTwoName}
+      />
       <DeckPanel drawCard={() => startDrawingFromDeck === 2 && drawCard()} />
 
       <div
