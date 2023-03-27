@@ -32,7 +32,7 @@ export default function Menu({
     }
     setPlayerOneName(playerOneInput);
     setPlayerTwoName(playerTwoInput);
-    console.log(playersNames.playerOne);
+    setIsOpen(false);
   };
 
   return (
@@ -56,13 +56,40 @@ export default function Menu({
           </h1>
           <button
             type="button"
-            className="close-button"
+            className="btn close-button"
             onClick={() => closeModal()}
           >
             X
           </button>
         </div>
         <div className="modal-right-wrap">
+          <div className="text-wrap">
+            <h3>How to play?</h3>
+            <p>
+              <b>Game goal:</b> to have the lowest possible sum of card values.
+            </p>
+            <ol>
+              <li>
+                You get 4 cards but only can check the 2 of them out. Don’t peek
+                on your opponent now!
+              </li>
+              <li>
+                You take turns and draw one card from the remaining deck or from
+                the rejected cards deck (if anythings there). Then you decide
+                whether you want to reject it or replace one of your cards with
+                it. Your evey move is visible from now on!
+              </li>
+              <li>
+                If you’re feeling confident in your score simply hit
+                &ldquo;KOBO&ldquo; button and check who won.
+              </li>
+            </ol>
+            <p>
+              <b>Cards values:</b> Going up from Ace through 2 to 10 ending at
+              Jack, Queen and King the values consecutively go from 1 to 13.
+              There is an exception though: both red Kings&apos; values are 0.
+            </p>
+          </div>
           <div>
             <h3>Set up your names here:</h3>
             <form>
@@ -90,33 +117,6 @@ export default function Menu({
                 save
               </button>
             </form>
-          </div>
-          <div className="text-wrap">
-            <h3>How to play?</h3>
-            <p>
-              <b>Game goal:</b> to have the lowest possible sum of card values.
-            </p>
-            <ol>
-              <li>
-                You get 4 cards but only can check the 2 of them out. Don’t peek
-                on your opponent now!
-              </li>
-              <li>
-                You take turns and draw one card from the remaining deck or from
-                the rejected cards deck (if anythings there). Then you decide
-                whether you want to reject it or replace one of your cards with
-                it. Your evey move is visible from now on!
-              </li>
-              <li>
-                If you’re feeling confident in your score simply hit
-                &ldquo;KOBO&ldquo; button and check who won.
-              </li>
-            </ol>
-            <p>
-              <b>Cards values:</b> Going up from Ace through 2 to 10 ending at
-              Jack, Queen and King the values consecutively go from 1 to 13.
-              There is an exception though: both red Kings&apos; values are 0.
-            </p>
           </div>
         </div>
       </Modal>

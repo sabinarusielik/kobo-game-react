@@ -223,6 +223,17 @@ button {
       background-color: $orange;
     }
   }
+  &.close-button {    
+    position: absolute;
+    top: 40px;
+    right: 40px;
+    padding: 0;
+    background-color: transparent;
+    color: $orange;
+    &:hover {
+      color: $green;
+    }
+  }
 }
 
 .br-20 {
@@ -239,7 +250,7 @@ button {
 
 .divider {
   margin: $s-40;
-  border: 20px solid $beige;
+  border: calc($s-40 / 2) solid $beige;
   border-radius: 20px;
 }
 
@@ -283,6 +294,7 @@ button {
   overflow: hidden;
   display: flex;
   line-height: 1.3;
+  outline: none;
 }
 
 .overlay {
@@ -349,13 +361,4 @@ form {
     padding: 20px;
     width: 100%;
   }
-}
-
-button.close-button {
-  position: absolute;
-  top: 40px;
-  right: 40px;
-  background-color: white;
-  color: #f87248;
-  cursor: pointer;
 }
