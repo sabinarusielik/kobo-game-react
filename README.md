@@ -1,5 +1,5 @@
 # KOBO Card Game
-Game of KOBO in digital version built with React.js! Currently work in progress. You can check out the demo here: . 
+Game of KOBO in digital version built with React.js! Currently work in progress. You can check out the demo [here](https://famous-blini-df8662.netlify.app/). 
 This version of KOBO is a two player game. It's the digital implementation of my favourite card game and is a fun and effective way of practicing my React.js skills. The game goes like that: each player takes turn and tries to lower the sum of their points as much as possible. The player with the lowest count wins!
 
 - [KOBO Card Game](#kobo-card-game)
