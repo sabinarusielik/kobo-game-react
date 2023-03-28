@@ -9,7 +9,7 @@ export default function Card({
   handleFrontCounter,
   handleBackCounter,
 }) {
-  const [flipped, setFlipped] = useState(flip);
+  const [flipped, setFlipped] = useState(!flip);
 
   const changeCardFlip = () => setFlipped((prevSide) => !prevSide);
 
