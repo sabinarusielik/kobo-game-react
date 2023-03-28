@@ -32,7 +32,6 @@ export default function DeckPanel({ drawCard }) {
         return prevArr;
       });
       dispatch({ type: ACTIONS.DRAW, card: rejectedCard });
-      console.log("Draw from rejected", rejectedCard, rejectedCardsArr);
     }
   };
 
@@ -41,9 +40,6 @@ export default function DeckPanel({ drawCard }) {
       handlerFunction();
     }
   };
-
-  console.log("!!!Deck Panel RejectedCard", rejectedCardsArr);
-  console.log("DeckPanel", cardDrawnFromDeck);
 
   return (
     <div className="deck-wrap">

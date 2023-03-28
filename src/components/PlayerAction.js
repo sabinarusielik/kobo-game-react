@@ -20,10 +20,8 @@ export default function PlayerAction({ playerDeck, changeTurn }) {
     dispatch({ type: ACTIONS.REJECT });
     changeTurn();
   };
-  console.log("Player Action", cardDrawnFromDeck);
 
   const showReplacementButtons = () => {
-    console.log("I want to replace", cardDrawnFromDeck);
     setShowIndexButtons((indexButtons) => !indexButtons);
   };
 

@@ -119,9 +119,6 @@ export default function App() {
     setStopGame(true);
   };
 
-  console.log("App deck", deck);
-  console.log("App players decks", playerOneDeck, playerTwoDeck);
-
   return (
     <div className="App">
       <div className="logo white br-20">
