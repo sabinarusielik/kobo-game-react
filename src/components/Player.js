@@ -7,6 +7,7 @@ export default function Player({
   playerTurn,
   changeTurn,
   startDrawing,
+  stopGame,
 }) {
   const [disableFlip, setDisableFlip] = useState(false);
   const [backCount, setBackCount] = useState(0);
@@ -19,6 +20,14 @@ export default function Player({
       changeTurn();
     }
   }, [frontCount, backCount]);
+
+  useEffect(() => {
+    if (stopGame) {
+      setBackCount(0);
+      setFrontCount(0);
+      setDisableFlip(false);
+    }
+  }, [stopGame]);
 
   const handleFrontCounter = () => {
     if (playerTurn) {
@@ -39,7 +48,7 @@ export default function Player({
           <Card
             key={card.suit + card.value}
             card={card}
-            flip={false}
+            flip={stopGame}
             disableFlip={disableFlip}
             handleFrontCounter={frontCount < 2 && handleFrontCounter}
             handleBackCounter={backCount < 2 && handleBackCounter}
@@ -60,4 +69,5 @@ Player.propTypes = {
   playerTurn: PropTypes.bool.isRequired,
   changeTurn: PropTypes.func.isRequired,
   startDrawing: PropTypes.func.isRequired,
+  stopGame: PropTypes.bool.isRequired,
 };

@@ -1,6 +1,7 @@
 import { useEffect, useState, useContext, useRef } from "react";
-import { SUITS, VALUES } from "./cardsData";
+import { SUITS, VALUES, ASSIGN_VALUE } from "./cardsData";
 import { DrawnCardContext } from "./context/DrawnCardContext";
+import { RejectedCardContext } from "./context/RejectedCardContext";
 import logo from "./logo.svg";
 import InfoBelt from "./components/InfoBelt";
 import Menu from "./components/Menu";
@@ -8,14 +9,20 @@ import DeckPanel from "./components/DeckPanel";
 import Player from "./components/Player";
 import PlayerAction from "./components/PlayerAction";
 import { ACTIONS } from "./reducers/drawnCardReducer";
+import KoboButton from "./components/KoboButton";
 
 export default function App() {
   const { cardDrawnFromDeck, dispatch } = useContext(DrawnCardContext);
+  const { setRejectedCardsArr } = useContext(RejectedCardContext);
   const [deck, setDeck] = useState([]);
   const [playerOneDeck, setPlayerOneDeck] = useState([]);
   const [playerTwoDeck, setPlayerTwoDeck] = useState([]);
+  const [playerOneName, setPlayerOneName] = useState("Player One");
+  const [playerTwoName, setPlayerTwoName] = useState("Player Two");
   const [playerOneTurn, setPlayerOneTurn] = useState(true);
+  const [winner, setWinner] = useState("");
   const [startDrawingFromDeck, setStartDrawingFromDeck] = useState(0);
+  const [stopGame, setStopGame] = useState(false);
   const firedFirstEffectRef = useRef(false);
 
   // functions
@@ -53,12 +60,19 @@ export default function App() {
   };
 
   const startDrawing = () => {
-    setStartDrawingFromDeck(startDrawingFromDeck + 1);
+    setStartDrawingFromDeck((prevState) => prevState + 1);
   };
 
-  useEffect(() => {
-    if (firedFirstEffectRef.current) return;
-    firedFirstEffectRef.current = true;
+  const initialGameSetup = () => {
+    // prev game cleanup
+    setWinner("");
+    setStopGame(false);
+    setStartDrawingFromDeck(0);
+    setRejectedCardsArr([]);
+    setDeck([]);
+    setPlayerOneDeck([]);
+    setPlayerTwoDeck([]);
+    setPlayerOneTurn(true);
 
     // create and shuffle deck
     const shuffledDeck = shuffleDeck(createDeck());
@@ -73,15 +87,37 @@ export default function App() {
     setPlayerOneDeck(playerOneInitialCards);
     setPlayerTwoDeck(playerTwoInitialCards);
     setDeck(shuffledDeck);
-    console.log("!!!Fire useEffect");
+  };
+
+  // First launch of game on load
+  useEffect(() => {
+    if (firedFirstEffectRef.current) return;
+    firedFirstEffectRef.current = true;
+
+    initialGameSetup();
   }, []);
 
   const changeTurn = () => {
     setPlayerOneTurn((prevTurn) => !prevTurn);
   };
 
-  console.log("App deck", deck);
-  console.log("App players decks", playerOneDeck, playerTwoDeck);
+  const countPlayersPoints = (playerDeck) => {
+    const valueArray = playerDeck.map((card) => {
+      const value = ASSIGN_VALUE(card);
+      return value;
+    });
+    const sumOfPoints = valueArray.reduce(
+      (accumulator, currentValue) => accumulator + currentValue
+    );
+    return sumOfPoints;
+  };
+
+  const declareWinner = () => {
+    const playerOneSum = countPlayersPoints(playerOneDeck);
+    const playerTwoSum = countPlayersPoints(playerTwoDeck);
+    setWinner(playerOneSum < playerTwoSum ? playerOneName : playerTwoName);
+    setStopGame(true);
+  };
 
   return (
     <div className="App">
@@ -89,28 +125,48 @@ export default function App() {
         <img src={logo} alt="Typographic logo of KOBO" />
       </div>
 
-      <InfoBelt playerTurn={playerOneTurn} />
-      <Menu />
+      <InfoBelt
+        playerTurn={playerOneTurn}
+        winner={winner}
+        playersNames={{ playerOne: playerOneName, playerTwo: playerTwoName }}
+      />
+      <Menu
+        playersNames={{ playerOne: playerOneName, playerTwo: playerTwoName }}
+        setPlayerOneName={setPlayerOneName}
+        setPlayerTwoName={setPlayerTwoName}
+      />
       <DeckPanel drawCard={() => startDrawingFromDeck === 2 && drawCard()} />
 
-      <div className="players-wrap white br-20">
+      <div
+        className={`players-wrap white br-20 ${
+          playerOneTurn ? "" : "second-player-align"
+        }`}
+      >
         <Player
           cards={playerOneDeck}
           playerTurn={playerOneTurn}
           changeTurn={changeTurn}
           startDrawing={startDrawing}
+          stopGame={stopGame}
         />
-        <PlayerAction
-          playerDeck={playerOneTurn ? playerOneDeck : playerTwoDeck}
-          changeTurn={changeTurn}
-        />
+        {!stopGame ? (
+          <PlayerAction
+            playerDeck={playerOneTurn ? playerOneDeck : playerTwoDeck}
+            changeTurn={changeTurn}
+          />
+        ) : (
+          <div className="divider" />
+        )}
         <Player
           cards={playerTwoDeck}
           playerTurn={!playerOneTurn}
           changeTurn={changeTurn}
           startDrawing={startDrawing}
+          stopGame={stopGame}
         />
       </div>
+
+      <KoboButton declareWinner={declareWinner} resetGame={initialGameSetup} />
     </div>
   );
 }

@@ -1,13 +1,19 @@
-import React from "react";
 import PropTypes from "prop-types";
 import Button from "./Button";
 
-export default function IndexButtons({ playerDeck, replaceCard }) {
-  console.log(playerDeck);
+export default function IndexButtons({
+  playerDeck,
+  replaceCard,
+  showReplacementButtons,
+}) {
   const buttons = [];
 
   const handleIndexButtonClick = (index) => {
     replaceCard(index);
+  };
+
+  const handleXButtonClick = () => {
+    showReplacementButtons();
   };
 
   playerDeck.forEach((card, index) => {
@@ -22,6 +28,16 @@ export default function IndexButtons({ playerDeck, replaceCard }) {
     );
   });
 
+  buttons.push(
+    <Button
+      className="index-btn back"
+      key="button-x"
+      clickHandler={handleXButtonClick}
+    >
+      X
+    </Button>
+  );
+
   return <div className="index-btn-wrap">{buttons}</div>;
 }
 
@@ -33,4 +49,5 @@ IndexButtons.propTypes = {
     })
   ).isRequired,
   replaceCard: PropTypes.func.isRequired,
+  showReplacementButtons: PropTypes.func.isRequired,
 };
