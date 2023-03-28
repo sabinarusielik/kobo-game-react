@@ -69,6 +69,7 @@ export default function App() {
     setStopGame(false);
     setStartDrawingFromDeck(0);
     setRejectedCardsArr([]);
+    dispatch({ type: ACTIONS.REJECT });
     setDeck([]);
     setPlayerOneDeck([]);
     setPlayerTwoDeck([]);
